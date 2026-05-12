@@ -1,0 +1,10 @@
+#!name=TIDB增强
+#!desc=填入自己的key用于使用自己上传未审核通过的片头片尾数据
+#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1040.png
+#!tag=工具
+[Argument]
+key=input,TIDB Apikey,tag=key, desc=TIDB Api key
+[Rewrite]
+^https:\/\/api\.theintrodb\.org\/v2\/media(?:\/.*)?(?:\?.*)?$ header-add Authorization "Bearer {key}"
+[MITM]
+hostname = api.theintrodb.org
