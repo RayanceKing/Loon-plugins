@@ -13,7 +13,7 @@ DanmakuHost = input,"danmu.example.com",tag=Danmaku 域名,desc=填写你的 dan
 TmdbApiKey = input,"",tag=TMDB API Key,desc=填写你的 TMDB API Key（v3 auth）
 
 [Script]
-http-request ^https?:\/\/.+\/.*tmdbId= script-path=https://github.com/RayanceKing/Loon-plugins/infuse/danmaku-tmdb-fix.js, requires-body=false, timeout=15, tag=Danmaku TMDB适配, argument=[{DanmakuHost},{TmdbApiKey}]
+http-request ^https?:\/\/.+\/.*tmdbId= script-path=https://github.com/RayanceKing/Loon-plugins/blob/main/infuse/danmaku-tmdb-fix.js, requires-body=false, timeout=15, tag=Danmaku TMDB适配, argument=[{DanmakuHost},{TmdbApiKey}]
 
 [MITM]
 hostname = %APPEND% danmu.czumc.cn
