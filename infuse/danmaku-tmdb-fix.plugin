@@ -1,0 +1,19 @@
+#!name = Danmaku TMDB 参数适配
+#!desc = 将 Infuse 请求中的 tmdbId 转换为 danmaku 服务所需的 anime 参数。请先在 [Argument] 中填写你的 danmaku 域名和 TMDB API Key。
+#!author = RayanceKing
+#!homepage = 
+#!icon = 
+#!tag = 自建
+#!system = iOS,iPadOS,macOS
+#!date = 2026-10-18
+#!version = 1.0.0
+
+[Argument]
+DanmakuHost = input,"danmu.example.com",tag=Danmaku 域名,desc=填写你的 danmaku 服务域名（不含 https://）
+TmdbApiKey = input,"",tag=TMDB API Key,desc=填写你的 TMDB API Key（v3 auth）
+
+[Script]
+http-request ^https?:\/\/.+\/.*tmdbId= script-path=https://github.com/RayanceKing/Loon-plugins/infuse/danmaku-tmdb-fix.js, requires-body=false, timeout=15, tag=Danmaku TMDB适配, argument=[{DanmakuHost},{TmdbApiKey}]
+
+[MITM]
+hostname = %APPEND% danmu.czumc.cn
