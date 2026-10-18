@@ -1,32 +1,30 @@
 // Loon http-request 脚本：将 tmdbId 转换为 anime 参数
 // 通过 $argument 读取用户自定义的域名和 TMDB API Key
 
-// 解析 Loon 传入的 argument
-function parseArgument() {
-    let args = {};
+// Loon 会将 [Argument] 中的参数以对象形式注入 $argument
+// 优先按对象读取，同时兼容字符串格式
+let ARGS = {};
+if (typeof $argument === 'object' && $argument !== null) {
+    ARGS = $argument;
+} else if (typeof $argument === 'string' && $argument.length > 0) {
     try {
-        if (typeof $argument === 'string' && $argument.length > 0) {
-            // Loon 传入格式可能是 JSON 或 key=value&key2=value2
-            if ($argument.trim().startsWith('{')) {
-                args = JSON.parse($argument);
-            } else {
-                $argument.split('&').forEach(pair => {
-                    const idx = pair.indexOf('=');
-                    if (idx > 0) {
-                        const k = pair.substring(0, idx).trim();
-                        const v = pair.substring(idx + 1).trim();
-                        args[k] = v;
-                    }
-                });
-            }
+        if ($argument.trim().startsWith('{')) {
+            ARGS = JSON.parse($argument);
+        } else {
+            $argument.split('&').forEach(pair => {
+                const idx = pair.indexOf('=');
+                if (idx > 0) {
+                    const k = pair.substring(0, idx).trim();
+                    const v = pair.substring(idx + 1).trim();
+                    ARGS[k] = v;
+                }
+            });
         }
     } catch (e) {
         console.log('[Danmaku] argument 解析失败: ' + e);
     }
-    return args;
 }
 
-const ARGS = parseArgument();
 const DANMAKU_HOST = (ARGS.DanmakuHost || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
 const TMDB_API_KEY = ARGS.TmdbApiKey || '';
 const TMDB_BASE = 'https://api.themoviedb.org/3';

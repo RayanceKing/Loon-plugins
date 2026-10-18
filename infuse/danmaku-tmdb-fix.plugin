@@ -6,7 +6,7 @@
 #!tag = 自建
 #!system = iOS,iPadOS,macOS
 #!date = 2026-10-18
-#!version = 1.0.0
+#!version = 1.0.1
 
 [Argument]
 DanmakuHost = input,"danmu.example.com",tag=Danmaku 域名,desc=填写你的 danmaku 服务域名（不含 https://）
